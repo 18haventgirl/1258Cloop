@@ -101,11 +101,7 @@ const CalculatorForm = () => {
             </Select>
           </FieldGroup>
 
-          <FieldGroup
-            label="脂肪系数 (g/kg)"
-            hint="建议范围 0.5~1.5 g/kg"
-            error={errors.fatFactor?.message}
-          >
+          <FieldGroup label="脂肪系数 (g/kg)" error={errors.fatFactor?.message}>
             <Input type="number" step="0.1" min={0.5} max={1.5} {...register('fatFactor')} />
           </FieldGroup>
         </div>
