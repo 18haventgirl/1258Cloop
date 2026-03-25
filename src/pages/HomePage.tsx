@@ -179,92 +179,80 @@ const HomePage = () => {
 
       <section className="pb-16">
         <PageContainer>
-          <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
-            <Card className="p-6 sm:p-8">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-lg font-semibold text-slate-900">热量速查</h2>
-                <div className="w-full sm:w-56">
-                  <Input
-                    value={query}
-                    onChange={(event) => {
-                      setQuery(event.target.value);
-                      setPage(1);
-                    }}
-                    placeholder="搜索食物"
-                  />
-                </div>
+          <Card className="p-6 sm:p-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 className="text-lg font-semibold text-slate-900">热量速查</h2>
+              <div className="w-full sm:w-56">
+                <Input
+                  value={query}
+                  onChange={(event) => {
+                    setQuery(event.target.value);
+                    setPage(1);
+                  }}
+                  placeholder="搜索食物"
+                />
               </div>
-              <div className="mt-4 overflow-x-auto">
-                <table className="w-full min-w-[560px] text-left text-sm text-slate-600">
-                  <thead className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
-                    <tr>
-                      <th className="py-2">食物</th>
-                      <th className="py-2">常用单位</th>
-                      <th className="py-2">热量</th>
-                      <th className="py-2">蛋白质</th>
-                      <th className="py-2">脂肪</th>
-                      <th className="py-2">碳水</th>
-                      <th className="py-2">来源</th>
+            </div>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-[560px] text-left text-sm text-slate-600">
+                <thead className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
+                  <tr>
+                    <th className="py-2">食物</th>
+                    <th className="py-2">常用单位</th>
+                    <th className="py-2">热量</th>
+                    <th className="py-2">蛋白质</th>
+                    <th className="py-2">脂肪</th>
+                    <th className="py-2">碳水</th>
+                    <th className="py-2">来源</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paged.map((item) => (
+                    <tr key={item.name} className="border-b border-slate-100">
+                      <td className="py-2 font-medium text-slate-900">{item.name}</td>
+                      <td className="py-2">{item.unit}</td>
+                      <td className="py-2">{item.calories} kcal</td>
+                      <td className="py-2">{item.protein} g</td>
+                      <td className="py-2">{item.fat} g</td>
+                      <td className="py-2">{item.carbs} g</td>
+                      <td className="py-2">
+                        <a
+                          href={item.sourceUrl}
+                          className="text-brand-600 hover:text-brand-700"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {item.source}
+                        </a>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {paged.map((item) => (
-                      <tr key={item.name} className="border-b border-slate-100">
-                        <td className="py-2 font-medium text-slate-900">{item.name}</td>
-                        <td className="py-2">{item.unit}</td>
-                        <td className="py-2">{item.calories} kcal</td>
-                        <td className="py-2">{item.protein} g</td>
-                        <td className="py-2">{item.fat} g</td>
-                        <td className="py-2">{item.carbs} g</td>
-                        <td className="py-2">
-                          <a
-                            href={item.sourceUrl}
-                            className="text-brand-600 hover:text-brand-700"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {item.source}
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-                <span>共 {filtered.length} 条</span>
-                <div className="flex gap-2">
-                  {Array.from({ length: totalPages }, (_, index) => index + 1).map((num) => (
-                    <button
-                      key={num}
-                      type="button"
-                      onClick={() => setPage(num)}
-                      className={`h-8 w-8 rounded-full border text-xs ${
-                        num === currentPage
-                          ? 'border-brand-600 bg-brand-600 text-white'
-                          : 'border-slate-200 text-slate-500'
-                      }`}
-                    >
-                      {num}
-                    </button>
                   ))}
-                </div>
-                <span className="text-xs text-slate-400">
-                  数据来自 USDA FoodData Central（通过 MyFoodData / University Hospitals / USDA SR 展示）。
-                </span>
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+              <span>共 {filtered.length} 条</span>
+              <div className="flex gap-2">
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map((num) => (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => setPage(num)}
+                    className={`h-8 w-8 rounded-full border text-xs ${
+                      num === currentPage
+                        ? 'border-brand-600 bg-brand-600 text-white'
+                        : 'border-slate-200 text-slate-500'
+                    }`}
+                  >
+                    {num}
+                  </button>
+                ))}
               </div>
-            </Card>
-
-            <Card className="p-6 sm:p-8">
-              <h2 className="text-lg font-semibold text-slate-900">免责声明</h2>
-              <p className="mt-3 text-sm text-slate-600">
-                本工具仅供健身饮食规划参考，不构成医学建议或诊断治疗方案。
-              </p>
-              <Link to="/disclaimer" className="mt-6 inline-flex text-sm font-semibold text-brand-600">
-                查看完整免责声明 →
-              </Link>
-            </Card>
-          </div>
+              <span className="text-xs text-slate-400">
+                数据来自 USDA FoodData Central（通过 MyFoodData / University Hospitals / USDA SR 展示）。
+              </span>
+            </div>
+          </Card>
         </PageContainer>
       </section>
     </div>
