@@ -31,6 +31,11 @@ const CalculatorPage = () => {
               <h3 className="text-sm font-semibold text-slate-900">TDEE</h3>
               <p>TDEE = BMR × 活动系数</p>
               <p>久坐 1.2｜轻度 1.375｜中度 1.55｜高度 1.725｜极高 1.9</p>
+              <p className="mt-2 text-xs text-slate-500">
+                示例说明（仅用于帮助理解，不代表实际必须如此）：
+                久坐（几乎不运动/久坐办公），轻度（一周约 1~3 次训练），中度（一周约 3~5 次训练），
+                高度（几乎每天训练或高体力工作），极高（高强度训练 + 高体力工作）。
+              </p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">每日基础碳水</h3>
