@@ -31,14 +31,6 @@ const CalculatorPage = () => {
               <h3 className="text-sm font-semibold text-slate-900">TDEE</h3>
               <p>TDEE = BMR × 活动系数</p>
               <p>久坐 1.2｜轻度 1.375｜中度 1.55｜高度 1.725｜极高 1.9</p>
-              <p>
-                参考说明：
-                久坐（几乎不运动或主要为久坐工作），
-                轻度（每周约 1~3 次训练/运动），
-                中度（每周约 3~5 次训练/运动），
-                高度（几乎每天训练或体力劳动较多），
-                极高（高强度训练且伴随高体力工作）。
-              </p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">每日基础碳水</h3>
