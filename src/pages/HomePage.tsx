@@ -6,106 +6,228 @@ import { siteConfig } from '../config/site';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
 
+const toKcal = (kj: number) => Math.round((kj / 4.184) * 10) / 10;
+
 const foodData = [
   {
-    name: '熟鸡蛋全蛋',
-    unit: '1个（大）',
-    calories: 77.5,
-    protein: 6.29,
-    fat: 5.3,
-    carbs: 0.56,
-    source: 'USDA（University Hospitals）',
-    sourceUrl: 'https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/egg-whole-cooked-hard-boiled-1-large'
-  },
-  {
-    name: '蛋清',
-    unit: '1个（大）',
-    calories: 17.16,
-    protein: 3.6,
-    fat: 0.06,
-    carbs: 0.24,
-    source: 'USDA（University Hospitals）',
-    sourceUrl: 'https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/egg-white-raw-fresh-1-large'
-  },
-  {
-    name: '生大米（白米，长粒）',
-    unit: '1 cup（生，185g）',
-    calories: 675,
-    protein: 13.2,
-    fat: 1.2,
-    carbs: 147.9,
-    source: 'USDA（MyFoodData）',
-    sourceUrl: 'https://tools.myfooddata.com/nutrition-facts/169756/wt1'
-  },
-  {
-    name: '熟米饭（白米，长粒）',
-    unit: '100g（熟）',
-    calories: 130,
-    protein: 2.7,
-    fat: 0.28,
-    carbs: 28.2,
-    source: 'USDA（MyFoodData）',
-    sourceUrl: 'https://tools.myfooddata.com/nutrition-facts/20445'
-  },
-  {
-    name: '生面条（干意面口径）',
-    unit: '100g（干）',
-    calories: 371,
-    protein: 13,
-    fat: 1.5,
-    carbs: 74.7,
-    source: 'USDA（MyFoodData）',
-    sourceUrl: 'https://tools.myfooddata.com/nutrition-comparison/169736/100g'
-  },
-  {
-    name: '熟面条（熟意面口径）',
-    unit: '100g（熟）',
-    calories: 158,
-    protein: 5.8,
-    fat: 0.93,
-    carbs: 30.9,
-    source: 'USDA（MyFoodData）',
-    sourceUrl: 'https://tools.myfooddata.com/nutrition-facts/20121/100g/1'
-  },
-  {
-    name: '馒头（蒸馒头）',
+    name: '鸡蛋（全蛋，均值）',
     unit: '100g',
-    calories: 268,
-    protein: 6.7,
-    fat: 2.9,
-    carbs: 54.3,
-    source: 'USDA（FoodData Central，SnapCalorie 展示）',
-    sourceUrl: 'https://www.snapcalorie.com/nutrition/steamed_bun_nutrition.html'
+    energyKj: 599,
+    protein: 13.3,
+    fat: 8.8,
+    carbs: 2.8,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/978.html'
   },
   {
-    name: '生鸡胸肉（去皮去骨）',
+    name: '鸡蛋白',
     unit: '100g',
-    calories: 110,
-    protein: 23.09,
-    fat: 1.24,
+    energyKj: 254,
+    protein: 11.6,
+    fat: 0.1,
+    carbs: 3.1,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/982.html'
+  },
+  {
+    name: '稻米（生，均值）',
+    unit: '100g',
+    energyKj: 1473,
+    protein: 7.4,
+    fat: 0.8,
+    carbs: 77.9,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/280.html'
+  },
+  {
+    name: '米饭（蒸，均值）',
+    unit: '100g',
+    energyKj: 493,
+    protein: 2.6,
+    fat: 0.3,
+    carbs: 25.9,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/287.html'
+  },
+  {
+    name: '挂面（干，均值）',
+    unit: '100g',
+    energyKj: 1476,
+    protein: 10.3,
+    fat: 0.6,
+    carbs: 75.6,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/261.html'
+  },
+  {
+    name: '面条（均值）',
+    unit: '100g',
+    energyKj: 1212,
+    protein: 8.3,
+    fat: 0.7,
+    carbs: 61.9,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/264.html'
+  },
+  {
+    name: '馒头（均值）',
+    unit: '100g',
+    energyKj: 947,
+    protein: 7.0,
+    fat: 1.1,
+    carbs: 47.0,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/272.html'
+  },
+  {
+    name: '水煮鸡胸（参考：鸡胸脯肉）',
+    unit: '100g',
+    energyKj: 557,
+    protein: 19.4,
+    fat: 5.0,
+    carbs: 2.5,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/880.html'
+  },
+  {
+    name: '卤鸡腿（参考：鸡腿）',
+    unit: '100g',
+    energyKj: 753,
+    protein: 16.0,
+    fat: 13.0,
     carbs: 0,
-    source: 'USDA（SR 数据展示）',
-    sourceUrl: 'https://www.cooks.com/rec/nutrition?nwal=05062'
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/882.html'
   },
   {
-    name: '熟鸡胸肉（烤，去皮）',
+    name: '方便面饼（干）',
     unit: '100g',
-    calories: 165,
-    protein: 31.02,
-    fat: 3.57,
-    carbs: 0,
-    source: 'USDA（SR 数据展示）',
-    sourceUrl: 'https://www.cooks.com/rec/nutrition?nwal=05064'
+    energyKj: 1983,
+    protein: 9.5,
+    fat: 21.1,
+    carbs: 61.6,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/1291.html'
   },
   {
-    name: '熟鸡腿肉（去皮）',
+    name: '苹果（均值）',
     unit: '100g',
-    calories: 209,
-    protein: 25.94,
-    fat: 10.88,
-    carbs: 0,
-    source: 'USDA（SR 数据展示）',
-    sourceUrl: 'https://www.cooks.com/rec/nutrition?nwal=05098'
+    energyKj: 229,
+    protein: 0.2,
+    fat: 0.2,
+    carbs: 13.5,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/613.html'
+  },
+  {
+    name: '香蕉',
+    unit: '100g',
+    energyKj: 394,
+    protein: 1.4,
+    fat: 0.2,
+    carbs: 22.0,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/726.html'
+  },
+  {
+    name: '橙',
+    unit: '100g',
+    energyKj: 204,
+    protein: 0.8,
+    fat: 0.2,
+    carbs: 11.1,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/704.html'
+  },
+  {
+    name: '番茄',
+    unit: '100g',
+    energyKj: 86,
+    protein: 0.9,
+    fat: 0.2,
+    carbs: 4.0,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/405.html'
+  },
+  {
+    name: '黄瓜（鲜）',
+    unit: '100g',
+    energyKj: 66,
+    protein: 0.8,
+    fat: 0.2,
+    carbs: 2.9,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/422.html'
+  },
+  {
+    name: '西兰花',
+    unit: '100g',
+    energyKj: 151,
+    protein: 4.1,
+    fat: 0.6,
+    carbs: 4.3,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/465.html'
+  },
+  {
+    name: '菠菜（鲜）',
+    unit: '100g',
+    energyKj: 116,
+    protein: 2.6,
+    fat: 0.3,
+    carbs: 4.5,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/473.html'
+  },
+  {
+    name: '胡萝卜（黄）',
+    unit: '100g',
+    energyKj: 193,
+    protein: 1.4,
+    fat: 0.2,
+    carbs: 10.2,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/381.html'
+  },
+  {
+    name: '马铃薯（土豆）',
+    unit: '100g',
+    energyKj: 328,
+    protein: 2.0,
+    fat: 0.2,
+    carbs: 17.2,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/313.html'
+  },
+  {
+    name: '甘薯（红心，红薯）',
+    unit: '100g',
+    energyKj: 432,
+    protein: 1.1,
+    fat: 0.2,
+    carbs: 24.7,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/316.html'
+  },
+  {
+    name: '大白菜（均值）',
+    unit: '100g',
+    energyKj: 76,
+    protein: 1.5,
+    fat: 0.1,
+    carbs: 3.2,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/450.html'
+  },
+  {
+    name: '葡萄（均值）',
+    unit: '100g',
+    energyKj: 187,
+    protein: 0.5,
+    fat: 0.2,
+    carbs: 10.3,
+    source: '中国食物成分表（CDC 营养与健康所）',
+    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/684.html'
   }
 ];
 
@@ -114,7 +236,7 @@ const HomePage = () => {
 
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
-  const pageSize = 6;
+  const pageSize = 8;
 
   const filtered = useMemo(() => {
     const keyword = query.trim();
@@ -124,7 +246,7 @@ const HomePage = () => {
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const currentPage = Math.min(page, totalPages);
-  const paged = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paged = filtered.slice((currentPage - 1) * pageSize, pageSize * currentPage);
 
   return (
     <div>
@@ -181,7 +303,7 @@ const HomePage = () => {
         <PageContainer>
           <Card className="p-6 sm:p-8">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="text-lg font-semibold text-slate-900">热量速查</h2>
+              <h2 className="text-lg font-semibold text-slate-900">热量速查（100g 口径）</h2>
               <div className="w-full sm:w-56">
                 <Input
                   value={query}
@@ -194,7 +316,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[560px] text-left text-sm text-slate-600">
+              <table className="w-full min-w-[640px] text-left text-sm text-slate-600">
                 <thead className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
                   <tr>
                     <th className="py-2">食物</th>
@@ -211,10 +333,10 @@ const HomePage = () => {
                     <tr key={item.name} className="border-b border-slate-100">
                       <td className="py-2 font-medium text-slate-900">{item.name}</td>
                       <td className="py-2">{item.unit}</td>
-                      <td className="py-2">{item.calories} kcal</td>
-                      <td className="py-2">{item.protein} g</td>
-                      <td className="py-2">{item.fat} g</td>
-                      <td className="py-2">{item.carbs} g</td>
+                      <td className="py-2">{toKcal(item.energyKj)} kcal</td>
+                      <td className="py-2">{item.protein.toFixed(1)} g</td>
+                      <td className="py-2">{item.fat.toFixed(1)} g</td>
+                      <td className="py-2">{item.carbs.toFixed(1)} g</td>
                       <td className="py-2">
                         <a
                           href={item.sourceUrl}
@@ -249,7 +371,9 @@ const HomePage = () => {
                 ))}
               </div>
               <span className="text-xs text-slate-400">
-                数据来自 USDA FoodData Central（通过 MyFoodData / University Hospitals / USDA SR 展示）。
+                数据来自中国食物成分表（中国疾病预防控制中心营养与健康所）。能量为 kJ 换算 kcal。
+                鸡蛋通常以“个”计量，但权威成分表按 100g 口径，本表统一按 100g 展示。
+                部分熟制食物实际含水量会变化，请以成品称重为准。
               </span>
             </div>
           </Card>
