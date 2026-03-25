@@ -6,6 +6,7 @@ export const sampleInput: UserInput = {
   age: 30,
   height: 175,
   weight: 70,
+  activityLevel: 'moderate',
   trainingLevel: 'intermediate',
   bodyType: 'mesomorph',
   goal: 'fat_loss'

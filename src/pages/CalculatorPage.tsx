@@ -30,7 +30,7 @@ const CalculatorPage = () => {
             <div>
               <h3 className="text-sm font-semibold text-slate-900">TDEE</h3>
               <p>TDEE = BMR × 活动系数</p>
-              <p>当前版本固定使用「久坐 1.2」作为默认活动系数。</p>
+              <p>久坐 1.2｜轻度 1.375｜中度 1.55｜高度 1.725｜极高 1.9</p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">每日基础碳水</h3>
@@ -39,8 +39,8 @@ const CalculatorPage = () => {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">每日基础脂肪</h3>
-              <p>内胚型 0.8 g/kg｜中胚型 1.0 g/kg｜外胚型 1.2 g/kg</p>
-              <p>dailyFatBase = 体重 × 对应系数</p>
+              <p>固定 1.0 g/kg</p>
+              <p>dailyFatBase = 体重 × 1.0</p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">每日固定蛋白质</h3>

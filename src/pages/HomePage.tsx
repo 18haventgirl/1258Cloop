@@ -31,7 +31,7 @@ const HomePage = () => {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 { title: 'BMR 计算', desc: '根据身高体重与年龄估算基础代谢。' },
-                { title: 'TDEE 估算', desc: '默认以久坐系数估算每日消耗。' },
+                { title: 'TDEE 估算', desc: '结合活动水平估算每日消耗。' },
                 { title: '碳循环计划生成', desc: '高、中、低碳日自动分配。' },
                 { title: '三大营养素分配', desc: '碳水、脂肪、蛋白质一目了然。' }
               ].map((item) => (

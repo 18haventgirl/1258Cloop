@@ -15,9 +15,9 @@ export const carbFactorsByBodyType: Record<BodyType, number> = {
 };
 
 export const fatFactorsByBodyType: Record<BodyType, number> = {
-  endomorph: 0.8,
+  endomorph: 1.0,
   mesomorph: 1.0,
-  ectomorph: 1.2
+  ectomorph: 1.0
 };
 
 export const proteinFactorsByTrainingLevel: Record<TrainingLevel, number> = {

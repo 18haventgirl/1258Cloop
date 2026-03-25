@@ -94,7 +94,7 @@ export const calculateCarbCycleDays = (
 
 export const generateCarbCyclePlan = (input: UserInput): Omit<PlanResult, 'foodExchangeExamples'> => {
   const bmr = calculateBMR(input);
-  const tdee = calculateTDEE(bmr, 'sedentary');
+  const tdee = calculateTDEE(bmr, input.activityLevel);
 
   const dailyBaseCarbs = calculateDailyBaseCarbs(input.weight, input.bodyType);
   const dailyBaseFat = calculateDailyBaseFat(input.weight, input.bodyType);

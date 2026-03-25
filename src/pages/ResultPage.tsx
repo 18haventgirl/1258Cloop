@@ -3,7 +3,6 @@ import PageContainer from '../components/layout/PageContainer';
 import EmptyState from '../components/ui/EmptyState';
 import Button from '../components/ui/Button';
 import { usePlanStore } from '../store/usePlanStore';
-import DisclaimerNotice from '../components/result/DisclaimerNotice';
 import SummaryCards from '../components/result/SummaryCards';
 import CarbDayCard from '../components/result/CarbDayCard';
 import WeeklyScheduleCard from '../components/result/WeeklyScheduleCard';
@@ -44,6 +43,7 @@ const ResultPage = () => {
   }
 
   const highFood = generateFoodExchangeExamples(result.highDay.carbs);
+  const mediumFood = generateFoodExchangeExamples(result.mediumDay.carbs);
   const lowFood = generateFoodExchangeExamples(result.lowDay.carbs);
 
   const handleCopy = async () => {
@@ -87,8 +87,6 @@ const ResultPage = () => {
           </p>
         </div>
 
-        <DisclaimerNotice />
-
         <SummaryCards result={result} />
 
         <div className="grid gap-4 lg:grid-cols-3">
@@ -116,8 +114,9 @@ const ResultPage = () => {
           <MacrosCompareChart result={result} />
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-6 lg:grid-cols-3">
           <FoodExchangeCard title="高碳日食物换算示例" carbGrams={result.highDay.carbs} examples={highFood} />
+          <FoodExchangeCard title="中碳日食物换算示例" carbGrams={result.mediumDay.carbs} examples={mediumFood} />
           <FoodExchangeCard title="低碳日食物换算示例" carbGrams={result.lowDay.carbs} examples={lowFood} />
         </div>
 

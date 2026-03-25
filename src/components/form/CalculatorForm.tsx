@@ -9,6 +9,12 @@ import Button from '../ui/Button';
 import Card from '../ui/Card';
 import { generatePlan } from '../../lib/strategies/defaultStrategy';
 import { usePlanStore } from '../../store/usePlanStore';
+import {
+  activityMultipliers,
+  carbFactorsByBodyType,
+  fatFactorsByBodyType,
+  proteinFactorsByTrainingLevel
+} from '../../config/nutrition';
 
 const CalculatorForm = () => {
   const navigate = useNavigate();
@@ -25,6 +31,7 @@ const CalculatorForm = () => {
       age: input?.age ?? 28,
       height: input?.height ?? 175,
       weight: input?.weight ?? 70,
+      activityLevel: input?.activityLevel ?? 'moderate',
       trainingLevel: input?.trainingLevel ?? 'beginner',
       bodyType: input?.bodyType ?? 'mesomorph'
     }
@@ -59,16 +66,26 @@ const CalculatorForm = () => {
             <Input type="number" step="0.1" min={30} max={250} {...register('weight')} />
           </FieldGroup>
 
+          <FieldGroup label="活动水平" error={errors.activityLevel?.message}>
+            <Select {...register('activityLevel')}>
+              <option value="sedentary">久坐（{activityMultipliers.sedentary}）</option>
+              <option value="light">轻度活动（{activityMultipliers.light}）</option>
+              <option value="moderate">中度活动（{activityMultipliers.moderate}）</option>
+              <option value="high">高度活动（{activityMultipliers.high}）</option>
+              <option value="very_high">极高活动（{activityMultipliers.very_high}）</option>
+            </Select>
+          </FieldGroup>
+
           <FieldGroup
             label="训练基础"
             tooltip="用于决定蛋白质摄入起点"
             error={errors.trainingLevel?.message}
           >
             <Select {...register('trainingLevel')}>
-              <option value="none">无基础</option>
-              <option value="beginner">新手</option>
-              <option value="intermediate">中级</option>
-              <option value="advanced">高级</option>
+              <option value="none">无基础（{proteinFactorsByTrainingLevel.none} × 蛋白质）</option>
+              <option value="beginner">新手（{proteinFactorsByTrainingLevel.beginner} × 蛋白质）</option>
+              <option value="intermediate">中级（{proteinFactorsByTrainingLevel.intermediate} × 蛋白质）</option>
+              <option value="advanced">高级（{proteinFactorsByTrainingLevel.advanced} × 蛋白质）</option>
             </Select>
           </FieldGroup>
 
@@ -78,9 +95,9 @@ const CalculatorForm = () => {
             error={errors.bodyType?.message}
           >
             <Select {...register('bodyType')}>
-              <option value="endomorph">内胚型</option>
-              <option value="mesomorph">中胚型</option>
-              <option value="ectomorph">外胚型</option>
+              <option value="endomorph">内胚型（碳水 {carbFactorsByBodyType.endomorph} g/kg）</option>
+              <option value="mesomorph">中胚型（碳水 {carbFactorsByBodyType.mesomorph} g/kg）</option>
+              <option value="ectomorph">外胚型（碳水 {carbFactorsByBodyType.ectomorph} g/kg）</option>
             </Select>
           </FieldGroup>
         </div>

@@ -21,6 +21,7 @@ export const isUserInput = (value: unknown): value is UserInput => {
     'age',
     'height',
     'weight',
+    'activityLevel',
     'trainingLevel',
     'bodyType'
   ]);
