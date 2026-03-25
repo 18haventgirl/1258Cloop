@@ -64,11 +64,11 @@ const CalculatorForm = () => {
 
           <FieldGroup label="活动水平" error={errors.activityLevel?.message}>
             <Select {...register('activityLevel')}>
-              <option value="sedentary">久坐</option>
-              <option value="light">轻度活动</option>
-              <option value="moderate">中度活动</option>
-              <option value="high">高度活动</option>
-              <option value="very_high">极高活动</option>
+              <option value="sedentary">久坐（几乎不运动或主要为久坐工作）</option>
+              <option value="light">轻度（每周约 1~3 次训练/运动）</option>
+              <option value="moderate">中度（每周约 3~5 次训练/运动）</option>
+              <option value="high">高度（几乎每天训练或体力劳动较多）</option>
+              <option value="very_high">极高（高强度训练且伴随高体力工作）</option>
             </Select>
           </FieldGroup>
 
