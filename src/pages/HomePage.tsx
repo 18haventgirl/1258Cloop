@@ -80,7 +80,7 @@ const foodData = [
     sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/272.html'
   },
   {
-    name: '水煮鸡胸（参考：鸡胸脯肉）',
+    name: '鸡胸脯肉（生）',
     unit: '100g',
     energyKj: 557,
     protein: 19.4,
@@ -90,14 +90,26 @@ const foodData = [
     sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/880.html'
   },
   {
-    name: '卤鸡腿（参考：鸡腿）',
+    name: '鸡胸肉（熟，炖/焖）',
     unit: '100g',
-    energyKj: 753,
-    protein: 16.0,
-    fat: 13.0,
+    energyKj: 695,
+    protein: 32.1,
+    fat: 3.24,
     carbs: 0,
-    source: '中国食物成分表（CDC 营养与健康所）',
-    sourceUrl: 'https://nlc.chinanutri.cn/fq/foodinfo/882.html'
+    source: 'USDA FoodData Central（Health Science Insights）',
+    sourceUrl:
+      'https://www.healthscienceinsights.com/en/tools/nutrition-facts/products/331960-chicken-broiler-or-fryers-breast-skinless-boneless-meat-only-cooked-braised/'
+  },
+  {
+    name: '卤鸡腿（参考：鸡小腿/腿棒，熟，braised）',
+    unit: '100g',
+    energyKj: 619,
+    protein: 23.71,
+    fat: 5.9,
+    carbs: 0,
+    source: 'USDA FNDDS Survey（Health Science Insights）',
+    sourceUrl:
+      'https://www.healthscienceinsights.com/en/tools/nutrition-facts/products/2706015-chicken-drumstick-stewed-skin-not-eaten/'
   },
   {
     name: '方便面饼（干）',
@@ -371,8 +383,9 @@ const HomePage = () => {
                 ))}
               </div>
               <span className="text-xs text-slate-400">
-                数据来自中国食物成分表（中国疾病预防控制中心营养与健康所）。能量为 kJ 换算 kcal。
+                数据主要来自中国食物成分表（中国疾病预防控制中心营养与健康所）。能量为 kJ 换算 kcal。
                 鸡蛋通常以“个”计量，但权威成分表按 100g 口径，本表统一按 100g 展示。
+                部分熟制禽肉来源为 USDA FoodData Central / FNDDS（通过 Health Science Insights 展示）。
                 部分熟制食物实际含水量会变化，请以成品称重为准。
               </span>
             </div>
