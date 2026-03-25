@@ -14,5 +14,6 @@ export interface UserInput {
   activityLevel: ActivityLevel;
   trainingLevel: TrainingLevel;
   bodyType: BodyType;
+  fatFactor: number; // g/kg
   goal?: 'fat_loss';
 }

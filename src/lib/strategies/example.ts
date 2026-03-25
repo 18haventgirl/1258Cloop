@@ -9,6 +9,7 @@ export const sampleInput: UserInput = {
   activityLevel: 'moderate',
   trainingLevel: 'intermediate',
   bodyType: 'mesomorph',
+  fatFactor: 1.0,
   goal: 'fat_loss'
 };
 

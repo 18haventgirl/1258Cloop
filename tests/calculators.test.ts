@@ -50,10 +50,9 @@ describe('每日基础碳水', () => {
 });
 
 describe('每日基础脂肪', () => {
-  it('固定 1.0 g/kg', () => {
-    closeTo(70).expect(calculateDailyBaseFat(70, 'endomorph'));
-    closeTo(70).expect(calculateDailyBaseFat(70, 'mesomorph'));
-    closeTo(70).expect(calculateDailyBaseFat(70, 'ectomorph'));
+  it('按输入系数计算', () => {
+    closeTo(70).expect(calculateDailyBaseFat(70, 1.0));
+    closeTo(56).expect(calculateDailyBaseFat(70, 0.8));
   });
 });
 

@@ -12,7 +12,6 @@ import { usePlanStore } from '../../store/usePlanStore';
 import {
   activityMultipliers,
   carbFactorsByBodyType,
-  fatFactorsByBodyType,
   proteinFactorsByTrainingLevel
 } from '../../config/nutrition';
 
@@ -33,7 +32,8 @@ const CalculatorForm = () => {
       weight: input?.weight ?? 70,
       activityLevel: input?.activityLevel ?? 'moderate',
       trainingLevel: input?.trainingLevel ?? 'beginner',
-      bodyType: input?.bodyType ?? 'mesomorph'
+      bodyType: input?.bodyType ?? 'mesomorph',
+      fatFactor: input?.fatFactor ?? 1.0
     }
   });
 
@@ -99,6 +99,14 @@ const CalculatorForm = () => {
               <option value="mesomorph">中胚型（碳水 {carbFactorsByBodyType.mesomorph} g/kg）</option>
               <option value="ectomorph">外胚型（碳水 {carbFactorsByBodyType.ectomorph} g/kg）</option>
             </Select>
+          </FieldGroup>
+
+          <FieldGroup
+            label="脂肪系数 (g/kg)"
+            hint="建议范围 0.5~1.5 g/kg"
+            error={errors.fatFactor?.message}
+          >
+            <Input type="number" step="0.1" min={0.5} max={1.5} {...register('fatFactor')} />
           </FieldGroup>
         </div>
 

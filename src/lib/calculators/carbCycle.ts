@@ -1,6 +1,5 @@
 ﻿import {
   carbFactorsByBodyType,
-  fatFactorsByBodyType,
   kcalPerMacro,
   proteinFactorsByTrainingLevel,
   weeklyCarbRatios,
@@ -21,8 +20,8 @@ export const calculateDailyBaseCarbs = (weight: number, bodyType: UserInput['bod
 /**
  * 每日基础脂肪（克）
  */
-export const calculateDailyBaseFat = (weight: number, bodyType: UserInput['bodyType']): number => {
-  return weight * fatFactorsByBodyType[bodyType];
+export const calculateDailyBaseFat = (weight: number, fatFactor: number): number => {
+  return weight * fatFactor;
 };
 
 /**
@@ -97,7 +96,7 @@ export const generateCarbCyclePlan = (input: UserInput): Omit<PlanResult, 'foodE
   const tdee = calculateTDEE(bmr, input.activityLevel);
 
   const dailyBaseCarbs = calculateDailyBaseCarbs(input.weight, input.bodyType);
-  const dailyBaseFat = calculateDailyBaseFat(input.weight, input.bodyType);
+  const dailyBaseFat = calculateDailyBaseFat(input.weight, input.fatFactor);
   const dailyProtein = calculateDailyProtein(input.weight, input.trainingLevel);
 
   const { weeklyCarbs, weeklyFat, weeklyProtein } = calculateWeeklyMacros(
