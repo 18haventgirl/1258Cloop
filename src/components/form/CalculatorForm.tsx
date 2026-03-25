@@ -9,11 +9,7 @@ import Button from '../ui/Button';
 import Card from '../ui/Card';
 import { generatePlan } from '../../lib/strategies/defaultStrategy';
 import { usePlanStore } from '../../store/usePlanStore';
-import {
-  activityMultipliers,
-  carbFactorsByBodyType,
-  proteinFactorsByTrainingLevel
-} from '../../config/nutrition';
+import { carbFactorsByBodyType, proteinFactorsByTrainingLevel } from '../../config/nutrition';
 
 const CalculatorForm = () => {
   const navigate = useNavigate();
@@ -68,11 +64,11 @@ const CalculatorForm = () => {
 
           <FieldGroup label="活动水平" error={errors.activityLevel?.message}>
             <Select {...register('activityLevel')}>
-              <option value="sedentary">久坐（少运动/久坐）{activityMultipliers.sedentary}</option>
-              <option value="light">轻度（1~3 次/周）{activityMultipliers.light}</option>
-              <option value="moderate">中度（3~5 次/周）{activityMultipliers.moderate}</option>
-              <option value="high">高度（几乎每天）{activityMultipliers.high}</option>
-              <option value="very_high">极高（高强度+体力）{activityMultipliers.very_high}</option>
+              <option value="sedentary">久坐</option>
+              <option value="light">轻度活动</option>
+              <option value="moderate">中度活动</option>
+              <option value="high">高度活动</option>
+              <option value="very_high">极高活动</option>
             </Select>
           </FieldGroup>
 
@@ -82,10 +78,10 @@ const CalculatorForm = () => {
             error={errors.trainingLevel?.message}
           >
             <Select {...register('trainingLevel')}>
-              <option value="none">无基础（{proteinFactorsByTrainingLevel.none} × 蛋白质）</option>
-              <option value="beginner">新手（{proteinFactorsByTrainingLevel.beginner} × 蛋白质）</option>
-              <option value="intermediate">中级（{proteinFactorsByTrainingLevel.intermediate} × 蛋白质）</option>
-              <option value="advanced">高级（{proteinFactorsByTrainingLevel.advanced} × 蛋白质）</option>
+              <option value="none">无基础（蛋白质 {proteinFactorsByTrainingLevel.none} g/kg）</option>
+              <option value="beginner">新手（蛋白质 {proteinFactorsByTrainingLevel.beginner} g/kg）</option>
+              <option value="intermediate">中级（蛋白质 {proteinFactorsByTrainingLevel.intermediate} g/kg）</option>
+              <option value="advanced">高级（蛋白质 {proteinFactorsByTrainingLevel.advanced} g/kg）</option>
             </Select>
           </FieldGroup>
 
